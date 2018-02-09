@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Regions(Admin)</title>
+        <h:form>
+            <div class="ui-g-12 ui-md-4" align="left">
+                <h:commandButton value="Home Page" action="AdminPage"></h:commandButton>
+            </div>
+        </h:form>
+    </h:head>
+    <h:body>
+        <div align="center" style="vertical-align:bottom">
+            <h1>Regions</h1>
+            <h:form id="form">  
+                <p:growl id="msgs" showDetail="true" />  
+                <p:accordionPanel>  
+                    <p:tab title="Regions">  
+                        <h:panelGrid columns="2" cellpadding="10">  
+                            <h:dataTable value="#{RegionBean.getRegionList()}" var="r" border="1" >
+
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Region ID
+                                    </f:facet>
+                                    #{r.regionID}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Region Name
+                                    </f:facet>
+                                    #{r.regionName}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Delete
+                                    </f:facet>
+                                    <h:commandButton value="Delete" action="#{r.delete()}"/>
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:panelGrid>  
+                    </p:tab>    
+                </p:accordionPanel>  
+            </h:form>
+            <br></br><br></br>
+
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5">  
+                    <p:outputLabel for="firstname" value="Enter Region : " />  
+                    <p:inputText id="firstname" value="#{Region.regionName}" required="true" label="Firstname">  
+                        <f:validateLength maximum="2" />  
+                    </p:inputText>  
+                    <p:message for="firstname" display="icon" />   
+                </h:panelGrid> 
+
+                <h:commandButton value="Insert" action="#{Region.insert()}"/>
+                <br></br>
+            </h:form>
+        </div>
+    </h:body>
+</html>

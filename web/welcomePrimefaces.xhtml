@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>User Page</title>
+    </h:head>
+    <div align="center" style="horizontal-align">
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north">
+                    Choose Your Suitable Result
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="south">
+                    <h:outputText value="Remaining Budget"/>
+                    <h:commandButton value="Select This Plan" />
+                </p:layoutUnit>
+                <p:layoutUnit position="east" resizable="true" size="300">
+                    
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" resizable="true" size="300">
+                    
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form>
+                        <h3>Restaurant</h3>
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="40">
+                            <p:selectOneRadio id="res" value="#{Plan.selectedrestaurant}"  layout="grid" columns="1">
+                                <f:selectItems value="#{Plan.restaurants}" var="c" itemLabel="#{selectedrestaurant}" itemValue="#{selectedrestaurant}"/>
+                            </p:selectOneRadio>
+                            
+                            <p:selectOneRadio id="res1" value="#{Plan.selectedintratransport}"  layout="grid" columns="1">
+                                <f:selectItems value="#{Plan.intratransport}" var="c" itemLabel="#{selectedintratransport}" itemValue="#{selectedintratransport}"/>
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                        
+                    </h:form> 
+                    <h:form>
+                        <h3>Transport</h3>
+                        <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+                            <p:selectOneRadio id="trans" value="#{Plan.selectedintertransport}"  layout="grid" columns="1">
+                                <f:selectItems value="#{Plan.intertransport}" var="c" itemLabel="#{selectedintertransport}" itemValue="#{selectedintertransport}"/>
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                    </h:form> 
+                    <h:form>
+                        <h3>Hotel</h3>
+                        <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+                            <p:selectOneRadio id="hotels" value="#{Plan.selectedhotel}"  layout="grid" columns="1">
+                                <f:selectItems value="#{Plan.hotels}" var="c" itemLabel="#{selectedhotel}" itemValue="#{selectedhotel}"/>
+                                <p:inputText value="poopy"/>
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                    </h:form>   
+                </p:layoutUnit>
+
+
+            </p:layout>
+        </h:body>
+    </div>
+</html>

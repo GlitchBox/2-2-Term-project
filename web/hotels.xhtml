@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Hotels And Resorts(Admin)</title>
+        <h:form>
+            <div class="ui-g-12 ui-md-4" align="left">
+                <h:commandButton value="Home Page" action="AdminPage"></h:commandButton>
+            </div>
+        </h:form>
+    </h:head>
+    <h:body>
+        <div align="center" style="vertical-align:bottom">
+            <h1>Hotels And Resorts</h1>
+            <h:form id="form">  
+                <p:growl id="msgs" showDetail="true" />  
+                <p:accordionPanel>  
+                    <p:tab title="Hotels And Resorts">  
+                        <h:panelGrid columns="2" cellpadding="10">  
+                            <h:dataTable value="#{HotelsBean.getHotelsList()}" var="h" border="1" >
+
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Place ID
+                                    </f:facet>
+                                    #{h.PLACE_ID}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Genre
+                                    </f:facet>
+                                    #{h.KIND}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Name
+                                    </f:facet>
+                                    #{h.NAME}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Maximum Cost
+                                    </f:facet>
+                                    #{h.MAXIMUM_COST}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Minimum Cost
+                                    </f:facet>
+                                    #{h.MINIMUM_COST}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        House No
+                                    </f:facet>
+                                    #{h.HOUSE_NO}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Road Number
+                                    </f:facet>
+                                    #{h.ROAD_NO}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Area Name
+                                    </f:facet>
+                                    #{h.AREA_NAME}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        District
+                                    </f:facet>
+                                    #{h.DISTRICT}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Rating
+                                    </f:facet>
+                                    #{h.RATING}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Rating Count
+                                    </f:facet>
+                                    #{h.RATING_COUNT}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Delete
+                                    </f:facet>
+                                    <h:commandButton value="Delete" action="#{h.demo()}"/>
+                                </h:column>
+
+                            </h:dataTable>
+                        </h:panelGrid>  
+                    </p:tab>    
+                </p:accordionPanel>  
+            </h:form>
+            <br></br><br></br>
+
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5">  
+                    <p:outputLabel for="firstname" value="Enter Name: "/>  
+                    <p:inputText id="firstname" value="#{Hotels.NAME}" required="true" label="Firstname">  
+                        <f:validateLength maximum="100" />  
+                    </p:inputText>  
+                    <p:message for="firstname" display="icon" />
+
+                    <p:outputLabel for="user-name" value="Enter Maximum Cost : "/>  
+                    <h:panelGrid columns="1" style="margin-bottom: 10px" >  
+                        <p:inputText id="user-name" value="#{Hotels.MAXIMUM_COST}" required="true"  />  
+                        <p:slider for="user-name" minValue="500" maxValue="10000"/>  
+                    </h:panelGrid>  
+                    <p:message for="user-name" display="icon" />
+
+                    <p:outputLabel for="user-name1" value="Enter Minimum Cost : "/>  
+                    <h:panelGrid columns="1" style="margin-bottom: 10px" >  
+                        <p:inputText id="user-name1" value="#{Hotels.MINIMUM_COST}" required="true"  />  
+                        <p:slider for="user-name1" minValue="500" maxValue="10000"/>  
+                    </h:panelGrid>  
+                    <p:message for="user-name1" display="icon" />
+
+                    <p:outputLabel for="lastname3" value="Enter Region Name : "/>
+                    <h:panelGrid  columns="1" >  
+                        <p:selectOneMenu id="lastname3" value="#{Hotels.REGION_NAME}" required="true" label="lastname3">
+                            <f:selectItem itemLabel="No Place Selected" itemValue="" noSelectionOption="false" />
+                            <f:selectItems value="#{Plan.regions}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <p:message for="lastname3" id="msgLastname3" display="icon" />
+
+                    <p:outputLabel for="lastname4" value="Enter House No : "/>
+                    <p:inputText id="lastname4" value="#{Hotels.HOUSE_NO}" required="true" label="lastname4">  
+                        <f:validateLength maximum="10" />  
+                    </p:inputText> 
+                    <p:message for="lastname4" id="msgLastname4" display="icon" />
+
+                    <p:outputLabel for="lastname7" value="Enter Road No : "/>
+                    <p:inputText id="lastname7" value="#{Hotels.ROAD_NO}" required="true" label="lastname7">  
+                        <f:validateLength maximum="10" />  
+                    </p:inputText> 
+                    <p:message for="lastname7" id="msgLastname7" display="icon" />
+
+                    <p:outputLabel for="lastname5" value="Enter Area Name :"/>
+                    <p:inputText id="lastname5" value="#{Hotels.AREA_NAME}" required="true" label="lastname5">  
+                        <f:validateLength maximum="20" />  
+                    </p:inputText> 
+                    <p:message for="lastname5" id="msgLastname5" display="icon" />
+
+                    <p:outputLabel for="lastname6" value="Enter District : "/>
+                    <p:inputText id="lastname6" value="#{Hotels.DISTRICT}" required="true" label="lastname6">  
+                        <f:validateLength maximum="20" />  
+                    </p:inputText> 
+                    <p:message for="lastname6" id="msgLastname6" display="icon" />
+
+                    <p:outputLabel for="country" value="Kind : " />
+                    <p:selectOneMenu id="country" value="#{Hotels.KIND}" style="width:150px" required="true">
+                        <p:ajax listener="#{Hotels.onKindChange}"  />
+                        <f:selectItem itemLabel="Select Kind" itemValue="" noSelectionOption="false" />
+                        <f:selectItems value="#{Hotels.kinds}" />
+                    </p:selectOneMenu>
+
+                </h:panelGrid> 
+                <h:commandButton value="Insert" action="#{Hotels.insert()}"/>
+
+            </h:form>
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Home Page</title>
+    </h:head>
+    <div align="center">
+        <h:body>
+            <h:form>
+                <h1>Tourism Database</h1>
+
+                <h:selectOneRadio value="#{roleselection.role}" required="true">
+                    <f:selectItem itemValue="Admin" itemLabel="Admin" />
+                    <f:selectItem itemValue="User" itemLabel="User" />
+                </h:selectOneRadio>
+                <br></br>
+                <h:outputText value="Enter Name: "/>
+                <h:inputText value="#{roleselection.user}" required="true"/>
+                <br></br><br></br>
+                <h:outputText value="Enter Password: "/>
+                <h:inputSecret value="#{roleselection.password}" required="true"/>
+                <br></br><br></br>
+                <h:commandButton value="Log in" action="page" ></h:commandButton>
+                <br></br><br></br>
+
+            </h:form>
+
+            <br />
+            <br />
+            <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        </h:body>
+    </div>
+</html>

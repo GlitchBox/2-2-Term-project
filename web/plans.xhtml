@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form id="form">
+                <p:layout fullPage="true">
+
+                    <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                        <h1>Edit Your Previous Plans</h1>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="west" size="175" collapsible="true">
+
+                        <p:dataTable id="eventsDT" var="plan" value="#{PlanBean.getPlanList()}" selectionMode="single" selection="#{PlanBean.plan}" rowKey="#{plan.PLAN_ID}">
+                            <f:facet name="header">
+                                Plan List
+                            </f:facet>
+                            <p:ajax event="rowSelect" listener="#{PlanBean.onRowSelect}" update=":form:try"/>
+                            <p:column headerText="Id">
+                                <h:outputText value="#{plan.PLAN_ID}" />
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+                        <p:growl id="messages" showDetail="true"/>
+
+                        <p:panelGrid columns="1" id="try" >
+
+                            <p:outputLabel value="Hotel" />
+
+                            <p:panelGrid columns="7" >
+                                <p:outputLabel value="Hotel Name :" />
+                                <h:outputText value="#{PlanBean.hotel.NAME}" />
+                                <p:rating value="#{PlanBean.rating3}">
+                                    <p:ajax event="rate" listener="#{PlanBean.onrateHotel}" update="messages" />
+                                    <p:ajax event="cancel" listener="#{PlanBean.oncancel}" update="messages" />
+                                </p:rating>
+                            </p:panelGrid>
+
+                            <p:outputLabel value="Transport" />
+
+                            <p:panelGrid columns="5" >
+                                <p:outputLabel value="Transport Name :" />
+                                <h:outputText value="#{PlanBean.inter.VEHICLE_NAME}" />
+                                <p:rating value="#{PlanBean.ratingtrans}">
+                                    <p:ajax event="rate" listener="#{PlanBean.onrateInter}" update="messages" />
+                                    <p:ajax event="cancel" listener="#{PlanBean.oncancel}" update="messages" />
+                                </p:rating>
+                            </p:panelGrid>
+
+                            <p:outputLabel value="Restaurant" />
+
+                            <p:panelGrid columns="5" >
+                                <p:outputLabel value="Restaurant Name :" />
+                                <h:outputText value="#{PlanBean.restaurant.RESTAURANT_NAME}" />
+                                <p:rating value="#{PlanBean.ratingres}">
+                                    <p:ajax event="rate" listener="#{PlanBean.onrateRestaurant}" update="messages" />
+                                    <p:ajax event="cancel" listener="#{PlanBean.oncancel}" update="messages" />
+                                </p:rating>
+
+                            </p:panelGrid>
+
+                            <p:outputLabel value=" " />
+
+                            <p:panelGrid columns="5" >
+                                <p:dataTable id="eventsDT2" var="intra" value="#{PlanBean.intra}" rowKey="#{intra.VEHICLE_NAME}">
+                                    <f:facet name="header">
+                                        Intra Region Transport
+                                    </f:facet>
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{intra.MODE_OF_TRANSPORT}" />
+                                    </p:column>
+                                    <p:column headerText="From">
+                                        <h:outputText value="#{intra.FROM_DEST}" />
+                                    </p:column>
+                                    <p:column headerText="to">
+                                        <h:outputText value="#{intra.TO_DEST}" />
+                                    </p:column>
+                                    <p:column headerText="Id">
+                                        <p:rating value="#{PlanBean.rating3}">
+                                            <p:ajax event="rate" listener="#{PlanBean.onrate}" update=":form:messages" />
+                                        </p:rating>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panelGrid>
+
+                            <p:outputLabel value=" " />
+
+                            <p:panelGrid columns="5" >
+                                <p:dataTable id="eventsDT1" var="land" value="#{PlanBean.lands}" rowKey="#{land.LANDMARK_NAME}">
+                                    <f:facet name="header">
+                                        Landmark
+                                    </f:facet>
+                                    <p:column headerText="Name">
+                                        <h:outputText value="#{land.LANDMARK_NAME}" />
+                                    </p:column>
+                                    <p:column headerText="Id">
+                                        <p:rating value="#{PlanBean.rating3}">
+                                            <p:ajax event="rate" listener="#{PlanBean.onrate}" update=":form:messages" />
+                                        </p:rating>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panelGrid>
+
+                            <p:outputLabel value=" " />
+
+                            <p:panelGrid columns="5" >
+                                <p:dataTable id="eventsDT3" var="emergency" value="#{PlanBean.emergency}" rowKey="#{emergency.EMERGENCY_NAME}">
+                                    <f:facet name="header">
+                                        Emergency
+                                    </f:facet>
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{emergency.EMERGENCY_NAME}" />
+                                    </p:column>
+                                    <p:column headerText="Id">
+                                        <h:commandButton value="delete"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton update=":form:multiCarDetail" icon="ui-icon-search" value="Insert" oncomplete="PF('multiCarDialog').show()" />
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:panelGrid>
+
+                            <p:outputLabel value=" " />
+
+                            <p:panelGrid columns="5" >
+                                <p:dataTable id="eventsDT4" var="market" value="#{PlanBean.market}" rowKey="#{market.MARKET_NAME}">
+                                    <f:facet name="header">
+                                        Market
+                                    </f:facet>
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{market.MARKET_NAME}" />
+                                    </p:column>
+                                    <p:column headerText="Id">
+                                        <h:commandButton value="delete"/>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton update=":form:multiCarDetail" icon="ui-icon-search" value="Insert" oncomplete="PF('multiCarDialog').show()" />
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:panelGrid>
+
+                            <p:outputLabel value=" " />
+
+                        </p:panelGrid>
+
+
+                        <p:dialog header="Values" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                            <h:panelGrid id="display" columns="2" cellpadding="5">
+                                <h:outputText value="Rating 1:" />
+                                <p:rating value="#{PlanBean.rating3}">
+                                    <p:ajax event="rate" listener="#{PlanBean.onrate}" update=":form:messages" />
+                                </p:rating>
+
+                                <h:outputText value="Rating 2:" />
+                                <p:rating value="#{PlanBean.rating3}">
+                                    <p:ajax event="rate" listener="#{PlanBean.onrate}" update=":form:messages" />
+                                </p:rating>
+
+                                <h:outputText value="Rating 3:" />
+                                <p:rating value="#{PlanBean.rating3}">
+                                    <p:ajax event="rate" listener="#{PlanBean.onrate}" update=":form:messages" />
+                                </p:rating>
+                            </h:panelGrid>
+                        </p:dialog>
+
+                        <p:dialog header="Insert" widgetVar="multiCarDialog" resizable="false" width="220">
+                            <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                                <h:outputText value="Rating 1:" />
+                                <h:outputText value="mutu" />
+                                <p:selectOneMenu id="lastname" value="#{Plan.LOCATION}" label="lastname">
+                                    <p:ajax listener="#{Plan.onLocationChange}"  />
+                                    <f:selectItem itemLabel="No Place Selected" itemValue="" noSelectionOption="false" />
+                                    <f:selectItems value="#{Plan.regions}" />
+                                </p:selectOneMenu>
+                            </p:outputPanel>
+                        </p:dialog>
+
+
+                    </p:layoutUnit>
+
+                </p:layout>
+
+            </h:form>
+        </h:body>
+
+    </f:view>
+</html>

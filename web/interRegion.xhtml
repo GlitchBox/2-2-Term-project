@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Inter Region(Admin)</title>
+        <h:form>
+            <div class="ui-g-12 ui-md-4" align="left">
+                <h:commandButton value="Home Page" action="AdminPage"></h:commandButton>
+            </div>
+        </h:form>
+    </h:head>
+    <h:body>
+        <div align="center" style="vertical-align:bottom">
+            <h1>Inter Region Transport</h1>
+            <h:form id="form">  
+                <p:growl id="msgs" showDetail="true" />  
+                <p:accordionPanel>  
+                    <p:tab title="Inter Region Transport">  
+                        <h:panelGrid columns="2" cellpadding="10">  
+                            <h:dataTable value="#{InterRTBean.getInterRegionTransportList()}" var="i" border="1" >
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        ID
+                                    </f:facet>
+                                    #{i.INTER_REGION_TRANSPORT_ID}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Name
+                                    </f:facet>
+                                    #{i.VEHICLE_NAME}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Origin Name
+                                    </f:facet>
+                                    #{i.FROM_NAME}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Destination Name
+                                    </f:facet>
+                                    #{i.TO_NAME}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Expense
+                                    </f:facet>
+                                    #{i.EXPENSE}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Mode Of Transport
+                                    </f:facet>
+                                    #{i.MODE_OF_TRANSPORT}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Delete
+                                    </f:facet>
+                                    <h:commandButton value="Delete" action="#{i.delete()}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGrid>  
+                    </p:tab>    
+                </p:accordionPanel>  
+            </h:form>
+
+            <br></br><br></br>
+            
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5">  
+                    <p:outputLabel for="firstname" value="Enter Name :"/>  
+                    <p:inputText id="firstname" value="#{InterRT.VEHICLE_NAME}" required="true" label="Firstname">  
+                        <f:validateLength maximum="20" />  
+                    </p:inputText>  
+                    <p:message for="firstname" display="icon" />
+                    
+                    <p:outputLabel for="user-name" value="Enter Cost : "/>  
+                    <h:panelGrid columns="1" style="margin-bottom: 10px" >  
+                        <p:inputText id="user-name" value="#{InterRT.EXPENSE}" required="true"  />  
+                        <p:slider for="user-name" minValue="100" maxValue="2000"/>  
+                    </h:panelGrid>  
+                    <p:message for="user-name" display="icon" />
+
+                    <p:outputLabel for="lastname3" value="Enter Origin Name : "/>
+                    <p:inputText id="lastname3" value="#{InterRT.FROM_NAME}" required="true" label="lastname3">  
+                        <f:validateLength maximum="10" />  
+                    </p:inputText> 
+                    <p:message for="lastname3" id="msgLastname3" display="icon" />
+
+                    <p:outputLabel for="lastname4" value="Enter Destination Name : "/>
+                    <p:inputText id="lastname4" value="#{InterRT.TO_NAME}" required="true" label="lastname4">  
+                        <f:validateLength maximum="10" />  
+                    </p:inputText> 
+                    <p:message for="lastname4" id="msgLastname4" display="icon" />
+                    
+                   <p:outputLabel for="country" value="Enter Mode: " />
+                    <p:selectOneMenu id="country" value="#{InterRT.MODE_OF_TRANSPORT}" required="true" label="country">
+                        <p:ajax listener="#{InterRT.onModeChange}"  />
+                        <f:selectItem itemLabel="Enter Mode: " itemValue="" noSelectionOption="false" />
+                        <f:selectItems value="#{InterRT.MODES}" />
+                    </p:selectOneMenu>
+                    <p:message for="country" id="country1" display="icon" />
+
+                </h:panelGrid> 
+                <h:commandButton value="Insert" action="#{InterRT.insert()}"/>
+
+            </h:form>
+        </div>
+    </h:body>
+</html>

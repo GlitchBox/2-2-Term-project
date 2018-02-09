@@ -1,0 +1,98 @@
+package ModelClass;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+@ManagedBean(name="roleselection")
+@SessionScoped
+ public class  PageController implements Serializable {
+
+    
+    static String role;
+    static String user ;
+    static String password ;
+    private DBConnection dbconnection = new DBConnection();
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+        System.out.println(role);
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String validate() throws SQLException
+{
+    String flag ="none";
+    Statement stmt = null;
+    Connection con = null;
+    ResultSet rs = null;
+    DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+            
+    String dbURL2 = "jdbc:oracle:thin:@localhost:1521:orcl";
+    con = DriverManager.getConnection(dbURL2, dbconnection.user, dbconnection.password);
+         if (con!= null) {
+                stmt = con.createStatement();
+            try {
+            rs = stmt.executeQuery("SELECT ROLE FROM USER_INFO WHERE USER_NAME = '"+getUser()+"' AND PWD = '" + getPassword() + "'");
+                if(rs.next() && rs.getString(1).equals(getRole()))
+                {
+                    flag = rs.getString(1);
+                    System.out.println("found");
+                }
+                else
+                {
+                    flag = "none";
+                    System.out.println("not found");
+                   // FacesContext.getCurrentInstance().addMessage("regionList", new FacesMessage("Entry already present"));
+                }
+            }
+            catch(SQLException e)
+            {
+                System.out.println("No data found while inserting");
+            }
+            finally
+            {
+                try
+                {
+                    con.close();
+                    stmt.close();
+                }
+                catch(SQLException e)
+                {
+                           System.out.println(e); 
+                }
+            }
+            }
+         return flag;
+
+}
+	
+}
+
+////pagecontroller

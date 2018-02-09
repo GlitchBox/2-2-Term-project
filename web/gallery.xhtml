@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>User Page</title>
+    </h:head>
+    <div align="center" style="vertical-align:bottom">
+        <h:body>
+            <h:form>
+                <p:layout fullPage="true">           
+                    <p:layoutUnit position="north">
+                        Gallery
+
+                        <div class="ui-g-12 ui-md-4" >
+                            <div class="ui-inputgroup" align="right">
+                                <h:panelGrid columns="3" > 
+                                    <h:commandButton value="Search" >
+                                    </h:commandButton> 
+                                    <p:selectOneMenu id="lastname" value="#{Gallery.LOCATION}" label="lastname">
+                                        <p:ajax listener="#{Gallery.onclick}"  />
+                                        <f:selectItem itemLabel="No Place Selected" itemValue="" noSelectionOption="false" />
+                                        <f:selectItems value="#{Plan.regions}" />
+                                    </p:selectOneMenu>
+                                    <p:message for="lastname" id="country1" display="icon" />
+                                </h:panelGrid>
+
+                            </div>
+                            <div class="ui-g-12 ui-md-4" align="left">
+                                <h:commandButton value="Home Page" action="index"></h:commandButton>
+                            </div>
+                        </div>
+                        <br/>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center" id="details">
+
+                        <p:growl id="msgs" showDetail="true" />  
+                        <p:accordionPanel>  
+                            <p:tab title="Landmark"> 
+                               
+                                <h:panelGrid columns="2" cellpadding="10"> 
+                                <p:galleria value="#{Gallery.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                                    <p:graphicImage value="images/#{Gallery.LOCATION}/#{image}"  title="#{image}"/>
+                                </p:galleria>
+                                </h:panelGrid>
+                                
+                                <h:panelGrid columns="2" cellpadding="10">  
+                                    <h:dataTable value="#{LandMarkBean.getLandMark()}" var="l" border="1" >
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                LandMark Name
+                                            </f:facet>
+                                            #{l.LANDMARK_NAME}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Genre
+                                            </f:facet>
+                                            #{l.GENRE}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                District
+                                            </f:facet>
+                                            #{l.DISTRICT}
+                                        </h:column>
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Rating
+                                            </f:facet>
+                                            <p:rating value="#{l.RATING}" />  
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:panelGrid>  
+                            </p:tab>    
+                        </p:accordionPanel>  
+                        <br></br>
+                        <p:growl id="msgs1" showDetail="true" />  
+                        <p:accordionPanel>  
+                            <p:tab title="Hotels">  
+                                <h:panelGrid columns="2" cellpadding="10">  
+                                    <h:dataTable value="#{HotelsBean.getHotels()}" var="h" border="1" >
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Genre
+                                            </f:facet>
+                                            #{h.KIND}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Name
+                                            </f:facet>
+                                            #{h.NAME}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Maximum Cost
+                                            </f:facet>
+                                            #{h.MAXIMUM_COST}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Minimum Cost
+                                            </f:facet>
+                                            #{h.MINIMUM_COST}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                House No
+                                            </f:facet>
+                                            #{h.HOUSE_NO}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Road Number
+                                            </f:facet>
+                                            #{h.ROAD_NO}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Rating
+                                            </f:facet>
+                                            <p:rating value="#{h.RATING}" />  
+                                        </h:column>
+
+
+                                    </h:dataTable>
+                                </h:panelGrid>  
+                            </p:tab>    
+                        </p:accordionPanel>  
+                        <br></br>
+                        <p:growl id="msgs2" showDetail="true" />  
+                        <p:accordionPanel>  
+                            <p:tab title="Restaurants">  
+                                <h:panelGrid columns="2" cellpadding="10">  
+                                    <h:dataTable value="#{RestaurantBean.getRestaurant()}" var="r" border="1" >
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Restaurant Name
+                                            </f:facet>
+                                            #{r.RESTAURANT_NAME}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Average Cost
+                                            </f:facet>
+                                            #{r.AVERAGE_COST}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                House Number
+                                            </f:facet>
+                                            #{r.HOUSE_NO}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Road Number
+                                            </f:facet>
+                                            #{r.ROAD_NO}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Area Name
+                                            </f:facet>
+                                            #{r.AREA_NAME}
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                District
+                                            </f:facet>
+                                            #{r.DISTRICT}
+                                        </h:column>
+
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                Rating
+                                            </f:facet>
+                                            <p:rating value="#{r.RATING}" />  
+                                        </h:column>
+                                        
+                                    </h:dataTable>
+                                </h:panelGrid>  
+                            </p:tab>    
+                        </p:accordionPanel>  
+
+                    </p:layoutUnit>
+
+                </p:layout>
+            </h:form>
+        </h:body>
+    </div>
+</html>
+

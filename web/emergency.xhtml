@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Emergency(Admin)</title>
+        <div class="ui-g-12 ui-md-4" align="left">
+            <h:commandButton value="Home Page" action="AdminPage"></h:commandButton>
+        </div>
+    </h:head>
+    <h:body>
+        <div align="center" style="vertical-align:bottom">
+            <h1>Emergency Services</h1>
+            <h:form id="form">  
+                <p:growl id="msgs" showDetail="true" />  
+                <p:accordionPanel>  
+                    <p:tab title="Emergency">  
+                        <h:panelGrid columns="2" cellpadding="10">  
+                            <h:dataTable value="#{EmergencyBean.getEmergencyList()}" var="e" border="1" >
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Place ID
+                                    </f:facet>
+                                    #{e.EMERGENCY_ID}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Genre
+                                    </f:facet>
+                                    #{e.KIND}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Name
+                                    </f:facet>
+                                    #{e.EMERGENCY_NAME}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        House No
+                                    </f:facet>
+                                    #{e.HOUSE_NO}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Road Number
+                                    </f:facet>
+                                    #{e.ROAD_NO}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Area Name
+                                    </f:facet>
+                                    #{e.AREA_NAME}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        District
+                                    </f:facet>
+                                    #{e.DISTRICT}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Contact Info
+                                    </f:facet>
+                                    #{e.CONTACT_INFO}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        Delete
+                                    </f:facet>
+                                    <h:commandButton value="Delete" action="#{e.delete()}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGrid>  
+                    </p:tab>    
+                </p:accordionPanel>  
+            </h:form>
+
+            <br></br><br></br>
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5">  
+                    <p:outputLabel for="firstname" value="Enter Name: "/>  
+                    <p:inputText id="firstname" value="#{Emergency.EMERGENCY_NAME}" required="true" label="Firstname">  
+                        <f:validateLength maximum="100" />  
+                    </p:inputText>  
+                    <p:message for="firstname" display="icon" />
+                    
+
+                    <p:outputLabel for="lastname3" value="Enter Region Name : "/>
+                    <h:panelGrid  columns="1" >  
+                        <p:selectOneMenu id="lastname3" value="#{Emergency.REGION_NAME}" required="true" label="lastname3">
+                            <f:selectItem itemLabel="No Place Selected" itemValue="" noSelectionOption="false" />
+                            <f:selectItems value="#{Plan.regions}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <p:message for="lastname3" id="msgLastname3" display="icon" />
+
+                    <p:outputLabel for="lastname4" value="Enter House No : "/>
+                    <p:inputText id="lastname4" value="#{Emergency.HOUSE_NO}" required="true" label="lastname4">  
+                        <f:validateLength maximum="10" />  
+                    </p:inputText> 
+                    <p:message for="lastname4" id="msgLastname4" display="icon" />
+                    
+                    <p:outputLabel for="lastname7" value="Enter Road No : "/>
+                    <p:inputText id="lastname7" value="#{Emergency.ROAD_NO}" required="true" label="lastname7">  
+                        <f:validateLength maximum="10" />  
+                    </p:inputText> 
+                    <p:message for="lastname7" id="msgLastname7" display="icon" />
+
+                    <p:outputLabel for="lastname5" value="Enter Area Name :"/>
+                    <p:inputText id="lastname5" value="#{Emergency.AREA_NAME}" required="true" label="lastname5">  
+                        <f:validateLength maximum="20" />  
+                    </p:inputText> 
+                    <p:message for="lastname5" id="msgLastname5" display="icon" />
+
+                    <p:outputLabel for="lastname6" value="Enter District : "/>
+                    <p:inputText id="lastname6" value="#{Emergency.DISTRICT}" required="true" label="lastname6">  
+                        <f:validateLength maximum="20" />  
+                    </p:inputText> 
+                    <p:message for="lastname6" id="msgLastname6" display="icon" />
+                    
+                    <p:outputLabel for="lastname16" value="Enter Contact Info : "/>
+                    <p:inputText id="lastname16" value="#{Emergency.CONTACT_INFO}" required="true" label="lastname16">  
+                        <f:validateLength maximum="100" />  
+                    </p:inputText> 
+                    <p:message for="lastname16" id="msgLastname16" display="icon" />
+
+                    <p:outputLabel for="country" value="Kind : " />
+                    <p:selectOneMenu id="country" value="#{Emergency.KIND}" style="width:150px" required="true">
+                        <p:ajax listener="#{Emergency.onKindChange}"  />
+                        <f:selectItem itemLabel="Select Kind :" itemValue="" noSelectionOption="false" />
+                        <f:selectItems value="#{Emergency.kinds}" />
+                    </p:selectOneMenu>
+
+                </h:panelGrid> 
+                <h:commandButton value="Insert" action="#{Emergency.insert()}"/>
+
+            </h:form>
+        </div>
+    </h:body>
+</html>

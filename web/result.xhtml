@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Home Page</title>
+    </h:head>
+    <div align="center">
+        <h:body >
+            <h:form id="form" >
+                <p:growl id="msgs" showDetail="true" />
+                <p:panelGrid columns="6" >
+
+                    <p:dataTable id="radioDT" var="inter" value="#{Plan.intertransport}" selection="#{Plan.selectedintertransport}" rowKey="#{inter.VEHICLE_NAME}" style="width:300px">
+                        <f:facet name="header">
+                            Inter Region Transport 
+                        </f:facet>
+                        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                        <p:column headerText="Name">
+                            <h:outputText value="#{inter.VEHICLE_NAME}" />
+                        </p:column>
+                        <p:column headerText="Cost">
+                            <h:outputText value="#{inter.EXPENSE}" />
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton process="radioDT" update=":form:carDetail" icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
+                        </f:facet>
+                    </p:dataTable>
+
+                    <p:dataTable id="radioDT1" var="hotels" value="#{Plan.hotels}" selection="#{Plan.selectedhotel}" rowKey="#{hotels.NAME}" style="width:300px">
+                        <f:facet name="header">
+                            Hotels
+                        </f:facet>
+                        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                        <p:column headerText="Name">
+                            <h:outputText value="#{hotels.NAME}" />
+                        </p:column>
+                        <p:column headerText="Cost">
+                            <h:outputText value="#{hotels.MINIMUM_COST}" />
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton process="radioDT1" update=":form:carDetail" icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
+                        </f:facet>
+                    </p:dataTable>
+
+                    <p:dataTable id="radioDT2" var="rest" value="#{Plan.restaurants}" selection="#{Plan.selectedrestaurant}" rowKey="#{rest.RESTAURANT_NAME}" style="width:300px">
+                        <f:facet name="header">
+                            Restaurant
+                        </f:facet>
+                        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                        <p:column headerText="Name">
+                            <h:outputText value="#{rest.RESTAURANT_NAME}" />
+                        </p:column>
+                        <p:column headerText="Cost">
+                            <h:outputText value="#{rest.AVERAGE_COST}" />
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton process="radioDT2" update=":form:carDetail" icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
+                        </f:facet>
+                    </p:dataTable>
+
+                    <p:dataTable id="checkboxDT" var="intra" value="#{Plan.intratransport}" selection="#{Plan.selectedintratransport}" rowKey="#{intra.MODE_OF_TRANSPORT}" style="margin-bottom:0;width:300px">
+                        <f:facet name="header">
+                            Intra Region Transport
+                        </f:facet>
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                        <p:column headerText="Mode">
+                            <h:outputText value="#{intra.MODE_OF_TRANSPORT}" />
+                        </p:column>
+                        <p:column headerText="Place">
+                            <h:outputText value="#{intra.TO_DEST}" />
+                        </p:column>
+                        <p:column headerText="Cost">
+                            <h:outputText value="#{intra.EXPENSE}" />
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton process="checkboxDT" update=":form:multiCarDetail" icon="ui-icon-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+                        </f:facet>
+                    </p:dataTable>
+
+                </p:panelGrid>
+                <p:commandButton process="@all" action="#{Plan.Preview()}" update=":form:carDetail" icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
+
+
+                <p:dialog header="Save" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" columnClasses="label,value">
+                            <h:outputText value="Name :" />
+                            <h:outputText value="#{Plan.selectedintertransport.VEHICLE_NAME}" />
+
+                            <h:outputText value="Cost :" />
+                            <h:outputText value="#{Plan.selectedintertransport.EXPENSE}" />
+
+                            <h:outputText value="Hotel Name :" />
+                            <h:outputText value="#{Plan.selectedhotel.NAME}" />
+
+                            <h:outputText value="Hotel Cost :" />
+                            <h:outputText value="#{Plan.selectedhotel.MINIMUM_COST}" />
+
+                            <h:outputText value="Restaurant Name :" />
+                            <h:outputText value="#{Plan.selectedrestaurant.RESTAURANT_NAME}" />
+
+                            <h:outputText value="Food Cost :" />
+                            <h:outputText value="#{Plan.selectedrestaurant.AVERAGE_COST}" />
+                            
+                            </p:panelGrid>
+
+                            <ui:repeat value="#{Plan.selectedintratransport}" var="inter">
+                                <h:outputText value="Food Cost :" />
+                                <h:outputText value="#{inter.EXPENSE}" style="display:block"/>
+                            </ui:repeat>
+
+                            <h:outputText value="total Cost :" />
+                            <h:outputText value="#{Plan.totalSpent}" />
+
+                        
+
+                        <br></br>
+                        <p:commandButton value="Save" action="notdone"/>
+
+                    </p:outputPanel>
+                </p:dialog>
+
+                <p:dialog header="Selected Transport" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+                    <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                        <ui:repeat value="#{Plan.selectedintratransport}" var="inter">
+                            <h:outputText value="#{inter.MODE_OF_TRANSPORT} - #{inter.EXPENSE}" style="display:block"/>
+                            <p:commandButton action="result"/>
+                        </ui:repeat>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+        </h:body>
+    </div>
+</html>

@@ -1,0 +1,16 @@
+            <br></br><br></br>
+            <h:commandButton value="Log in" action="page" ></h:commandButton>
+            <br></br><br></br>
+            <h:outputText value="Enter Name : "/>
+            <h:inputText value="#{User.username}" required="true"/>
+            <br></br><br></br>
+            <h:outputText value="Enter Password: "/>
+            <h:inputText value="#{User.pwd}" required="true"/>
+            <br></br><br></br>
+            <h:outputText value="Enter Cell No: "/>
+            <h:inputText value="#{User.CellNo}" required="true"/>
+            <br></br><br></br>
+            <h:outputText value="Enter Email: "/>
+            <h:inputText value="#{User.Email}"/>
+            <br></br><br></br>
+            <h:commandButton value="Sign Up" action="#{user.insert()}"/>

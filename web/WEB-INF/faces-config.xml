@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    
+    <navigation-rule>
+        <from-view-id>index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>page</from-outcome>
+            <if>#{roleselection.validate().equals("Admin")}</if>
+            <to-view-id>AdminPage.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>page</from-outcome>
+            <if>#{roleselection.validate().equals("User")}</if>
+            <to-view-id>user.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        
+    <navigation-rule>
+        <from-view-id>index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>signup</from-outcome>
+            <if>#{roleselection.newentry().equals("success")}</if>
+            <to-view-id>user.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        
+        
+    <navigation-rule>
+        <from-view-id>/newplan.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>showresult</from-outcome>
+            <if>#{Plan.Demo().equals("okay")}</if>
+            <to-view-id>/result.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/result.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>notdone</from-outcome>
+            <if>#{Plan.storePln()}</if>
+            <to-view-id>/plans.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+  
+
+</faces-config>

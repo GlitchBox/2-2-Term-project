@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Emergency(Admin)</title>
+    </h:head>
+    <h:body>
+<div align="center" style="vertical-align:bottom">
+<h1>Emergency Services</h1>
+<h:dataTable value="#{EmergencyBean.getEmergencyList()}" var="e" border="1" >
+
+<h:column>
+<f:facet name="header">
+Place ID
+</f:facet>
+#{e.EMERGENCY_ID}
+</h:column>
+
+<h:column>
+<f:facet name="header">
+Genre
+</f:facet>
+#{e.KIND}
+</h:column>
+
+<h:column>
+<f:facet name="header">
+Name
+</f:facet>
+#{e.EMERGENCY_NAME}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+House No
+</f:facet>
+#{e.HOUSE_NO}
+</h:column>
+   
+<h:column>
+<f:facet name="header">
+Road Number
+</f:facet>
+#{e.ROAD_NO}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Area Name
+</f:facet>
+#{e.AREA_NAME}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+District
+</f:facet>
+#{e.DISTRICT}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Contact Info
+</f:facet>
+#{e.CONTACT_INFO}
+</h:column>
+
+</h:dataTable>
+<br></br><br></br>
+<h:form>
+<h:outputText value="Enter Name(MUST): "/>
+<h:inputText value="#{Emergency.EMERGENCY_NAME}" />
+<br></br>
+<h:outputText value="Enter Type(MUST): "/>
+<h:inputText value="#{Emergency.KIND}" />
+<br></br>
+<h:outputText value="Enter Region Name(MUST) : "/>
+<h:inputText value="#{Emergency.REGION_NAME}" />
+<br></br>
+<h:outputText value="Enter House No : "/>
+<h:inputText value="#{Emergency.HOUSE_NO}" />
+<br></br>
+<h:outputText value="Enter Road No(MUST) : "/>
+<h:inputText value="#{Emergency.ROAD_NO}" />
+<br></br>
+<h:outputText value="Enter Area Name(MUST) : "/>
+<h:inputText value="#{Emergency.AREA_NAME}" />
+<br></br>
+<h:outputText value="Enter District(MUST) : "/>
+<h:inputText value="#{Emergency.DISTRICT}" />
+<br></br>
+<h:outputText value="Enter Contact Info(MUST) : "/>
+<h:inputText value="#{Emergency.CONTACT_INFO}" />
+<br></br>
+<h:commandButton value="Insert" action="#{Emergency.insert()}"/>
+<br></br><br></br><br></br>
+<h:outputText value="Enter LandMark To Delete : "/>
+<h:inputText value="#{Emergency.DEL_EMERGENCY_NAME}" />
+<h:commandButton value="Delete" action="#{Emergency.delete()}"/>
+</h:form>
+</div>
+</h:body>
+</html>
+

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Intra Region(Admin)</title>
+    </h:head>
+    <h:body>
+<div align="center" style="vertical-align:bottom">
+<h1>Intra Region Transport</h1>
+<h:dataTable value="#{IntraRTBean.getIntraRegionTransportList()}" var="i" border="1" >
+
+<h:column>
+<f:facet name="header">
+ID
+</f:facet>
+#{i.INTRA_REGION_TRANSPORT_ID}
+</h:column>
+
+<h:column>
+<f:facet name="header">
+Name
+</f:facet>
+#{i.VEHICLE_NAME}
+</h:column>
+
+<h:column>
+<f:facet name="header">
+Origin Name
+</f:facet>
+#{i.FROM_DEST}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Destination Name
+</f:facet>
+#{i.TO_DEST}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Expense
+</f:facet>
+#{i.EXPENSE}
+</h:column>
+
+<h:column>
+<f:facet name="header">
+Mode Of Transport
+</f:facet>
+#{i.MODE_OF_TRANSPORT}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Rating
+</f:facet>
+#{i.POPULARITY}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Rating Count
+</f:facet>
+#{i.POPULARITY_COUNT}
+</h:column>
+
+</h:dataTable>
+<br></br><br></br>
+<h:form>
+<h:outputText value="Enter Name: "/>
+<h:inputText value="#{IntraRT.VEHICLE_NAME}" />
+<h:outputText value="Enter Mode: "/>
+<h:inputText value="#{IntraRT.MODE_OF_TRANSPORT}" />
+<h:outputText value="Cost : "/>
+<h:inputText value="#{IntraRT.EXPENSE}" />
+<h:outputText value="Enter Origin Name : "/>
+<h:inputText value="#{IntraRT.FROM_DEST}" />
+<h:outputText value="Enter Destination Name : "/>
+<h:inputText value="#{IntraRT.TO_DEST}" />
+
+<h:commandButton value="Insert" action="#{IntraRT.insert()}"/>
+<br></br>
+<h:outputText value="Enter Transport Name To Delete : "/>
+<h:inputText value="#{IntraRT.DEL_VEHICLE_NAME}" />
+<h:commandButton value="Delete" action="#{IntraRT.delete()}"/>
+</h:form>
+</div>
+</h:body>
+</html>
+

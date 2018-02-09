@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Restaurant(Admin)</title>
+    </h:head>
+    <h:body>
+<div align="center" style="vertical-align:bottom">
+<h1>Restaurant</h1>
+<h:dataTable value="#{RestaurantBean.getRestaurantList()}" var="r" border="1" >
+
+<h:column>
+<f:facet name="header">
+Restaurant Name
+</f:facet>
+#{r.RESTAURANT_NAME}
+</h:column>
+
+<h:column>
+<f:facet name="header">
+Region Name
+</f:facet>
+#{r.REGION_NAME}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Average Cost
+</f:facet>
+#{r.AVERAGE_COST}
+</h:column>
+   
+<h:column>
+<f:facet name="header">
+House Number
+</f:facet>
+#{r.HOUSE_NO}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Road Number
+</f:facet>
+#{r.ROAD_NO}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Area Name
+</f:facet>
+#{r.AREA_NAME}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+District
+</f:facet>
+#{r.DISTRICT}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Rating
+</f:facet>
+#{r.RATING}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Rating Count
+</f:facet>
+#{r.RATING_COUNT}
+</h:column>
+    
+<h:column>
+<f:facet name="header">
+Contact Info
+</f:facet>
+#{r.CONTACT_INFO}
+</h:column>
+    
+</h:dataTable>
+<br></br><br></br>
+<h:form>
+<h:outputText value="Enter Name(must): "/>
+<h:inputText value="#{Restaurant.RESTAURANT_NAME}" />
+<br></br>
+<h:outputText value="Enter Region(must): "/>
+<h:inputText value="#{Restaurant.REGION_NAME}" />
+<br></br>
+<h:outputText value="Average Cost : "/>
+<h:inputText value="#{Restaurant.AVERAGE_COST}" />
+<br></br>
+<h:outputText value="Enter House Number : "/>
+<h:inputText value="#{Restaurant.HOUSE_NO}" />
+<br></br>
+<h:outputText value="Enter Road No(must): "/>
+<h:inputText value="#{Restaurant.ROAD_NO}" />
+<br></br>
+<h:outputText value="Enter Area Name(must) : "/>
+<h:inputText value="#{Restaurant.AREA_NAME}" />
+<br></br>
+<h:outputText value="Enter District(must) : "/>
+<h:inputText value="#{Restaurant.DISTRICT}" />
+<br></br>
+<h:outputText value="Enter Contact Info : "/>
+<h:inputText value="#{Restaurant.CONTACT_INFO}" />
+<br></br>
+<h:commandButton value="Insert" action="#{Restaurant.insert()}"/>
+<br></br><BR></BR><BR></BR>
+<h:outputText value="Enter LandMark To Delete : "/>
+<h:inputText value="#{Restaurant.DEL_RESTAURANT_NAME}" />
+<h:commandButton value="Delete" action="#{Restaurant.delete()}"/>
+</h:form>
+</div>
+</h:body>
+</html>

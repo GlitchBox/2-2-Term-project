@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>User Page</title>
+    </h:head>
+    <div align="center" style="vertical-align:bottom">
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100">
+                    <h1>New Plan</h1>
+                    <div class="ui-g-12 ui-md-4" align="left">
+                        <h:commandButton value="Home Page" action="user"></h:commandButton>
+                    </div>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form>
+                        <h:panelGrid columns="3" cellpadding="5">  
+
+                            <p:outputLabel for="lastname" value="Enter Your Current Place : " />
+                            <h:panelGrid columns="1" >  
+                                <p:selectOneMenu id="lastname" value="#{Plan.LOCATION}" required="true" label="lastname">
+                                    <p:ajax listener="#{Plan.onLocationChange}"  />
+                                    <f:selectItem itemLabel="No Place Selected" itemValue="" noSelectionOption="false" />
+                                    <f:selectItems value="#{Plan.regions}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <p:message for="lastname" id="country1" display="icon" />
+
+                            <p:outputLabel for="lastname1" value="Enter Your Destination : " />
+                            <h:panelGrid columns="1" >  
+                                <p:selectOneMenu id="lastname1" value="#{Plan.DESTINATION}" required="true" label="lastname1">
+                                    <p:ajax listener="#{Plan.onDestinationChange}" update="advanced" />
+                                    <f:selectItem itemLabel="No Place Selected" itemValue="" noSelectionOption="false" />
+                                    <f:selectItems value="#{Plan.regions}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <p:message for="lastname1" id="country2" display="icon" />
+
+
+                            <p:outputLabel for="user-name" value="Number Budget: "/>  
+                            <h:panelGrid columns="1" style="margin-bottom: 10px" >  
+                                <p:inputText id="user-name" value="#{Plan.BUDGET}" required="true"  />  
+                                <p:slider for="user-name" minValue="500" maxValue="50000"/>  
+                            </h:panelGrid>  
+                            <p:message for="user-name" display="icon" />
+
+                            <p:outputLabel for="user-name1" value="Enter Number of days you wish to stay : "/>  
+                            <h:panelGrid columns="1" style="margin-bottom: 10px" >  
+                                <p:inputText id="user-name1" value="#{Plan.DAYS}" required="true"  />  
+                                <p:slider for="user-name1" minValue="1" maxValue="30"/>
+                            </h:panelGrid>  
+                            <p:message for="user-name1" display="icon" />
+
+
+                            <p:outputLabel for="advanced" value="Choose Places You Want To Visit To :" />
+                            <p:selectManyMenu id="advanced" value="#{Plan.selectedlandmarks}" 
+                                              var="t" showCheckbox="true" required="true" >
+                                <f:selectItems value="#{Plan.landmarks}" var="theme" itemLabel="" itemValue="#{theme}" />
+
+                                <p:column>
+                                    <h:outputText value="#{t}" />
+                                </p:column>
+                            </p:selectManyMenu>
+
+                        </h:panelGrid> 
+                        <h:commandButton value="Make A plan!" action="showresult" ></h:commandButton>
+
+
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </div>
+</html>
